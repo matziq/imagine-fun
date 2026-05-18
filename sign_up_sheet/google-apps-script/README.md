@@ -42,3 +42,25 @@ The public page intentionally displays only name and item. Email and phone stay 
 ## Category limits
 
 The Apps Script uses `LockService` before saving a signup. That means if two people submit at nearly the same time for the last slot, only one should get the slot and the other will receive a full-category message.
+
+## Troubleshooting: `Error 401: invalid_client`
+
+If Google shows **Access blocked: Authorization Error** with **The OAuth client was not found** / **Error 401: invalid_client**, the Apps Script project's Google-managed OAuth client is usually stale or broken. The script code is not normally the cause.
+
+Fastest fix:
+
+1. Go back to the Google Sheet.
+1. Choose **Extensions > Apps Script** from that sheet again.
+1. If this opens the same broken Apps Script project, delete that Apps Script project from Drive or create a brand-new Google Sheet.
+1. Open **Extensions > Apps Script** from the new sheet.
+1. Paste `Code.gs` into the fresh bound script project.
+1. Click **Save**.
+1. Run `setup` again and authorize from the same Google account that owns the sheet.
+1. Deploy a new web app and use the new `/exec` URL.
+
+Other things to check:
+
+- Use one Google account in the browser while authorizing. Multiple signed-in Google accounts can send authorization through the wrong account.
+- Do not create or attach a custom Google Cloud OAuth client for this simple setup. A default Apps Script project is enough.
+- If you changed **Project Settings > Google Cloud Platform project**, switch back to a normal/default Apps Script project or create a fresh bound script.
+- If the error appears from an old deployment URL, create a new deployment and use the latest `/exec` URL.
