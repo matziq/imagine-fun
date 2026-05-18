@@ -39,6 +39,20 @@ Edit the Google Sheet directly:
 
 The public page intentionally displays only name and item. Email and phone stay private in the Google Sheet.
 
+## Who can customize the page?
+
+Only the Google Sheet owner/editors should be able to customize the shared page.
+
+- Keep the Google Sheet private, or share it only with trusted organizers as **Editor**.
+- Public visitors should only receive the GitHub Pages link, not edit access to the Google Sheet.
+- In shared mode, the public page hides the customize/import/export controls and only allows visitors to add sign-ups or print the public sheet.
+- The Apps Script web app exposes public `list` and `signup` actions only. It does not expose public actions for changing settings, categories, limits, or existing signups.
+
+To customize the page as the organizer, edit these private Google Sheet tabs directly:
+
+- `Settings` for title, note, date, location, organizer email, and optional hero image URL.
+- `Categories` for category names, icons, signup limits, and whether a category is active.
+
 ## Category limits
 
 The Apps Script uses `LockService` before saving a signup. That means if two people submit at nearly the same time for the last slot, only one should get the slot and the other will receive a full-category message.

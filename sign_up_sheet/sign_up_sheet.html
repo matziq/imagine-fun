@@ -749,10 +749,10 @@
                 This page saves entries in this browser/device and includes export/import/print tools for low-traffic
                 coordination.</p>
             <div class="toolbar-actions">
-                <button type="button" id="settings-toggle" class="btn-secondary">Customize</button>
-                <button type="button" id="export-json" class="btn-secondary">Export JSON</button>
-                <button type="button" id="export-csv" class="btn-secondary">Export CSV</button>
-                <button type="button" id="import-json" class="btn-secondary">Import</button>
+                <button type="button" id="settings-toggle" class="btn-secondary" data-owner-control>Customize</button>
+                <button type="button" id="export-json" class="btn-secondary" data-owner-control>Export JSON</button>
+                <button type="button" id="export-csv" class="btn-secondary" data-owner-control>Export CSV</button>
+                <button type="button" id="import-json" class="btn-secondary" data-owner-control>Import</button>
                 <button type="button" id="print-sheet" class="btn-accent">Print</button>
             </div>
         </div>
@@ -815,7 +815,8 @@
 
                 <div class="panel">
                     <h3>Low-traffic workflow</h3>
-                    <p class="hint">For a shared online list, export the JSON after collecting entries and upload the
+                    <p class="hint" id="workflow-note">For a shared online list, export the JSON after collecting
+                        entries and upload the
                         updated file, or use this at a signup table/kiosk. Static GitHub Pages does not provide a shared
                         database.</p>
                 </div>
@@ -886,6 +887,7 @@
             categoryEditor: $("category-editor"),
             summaryStrip: $("summary-strip"),
             modeNotice: $("mode-notice"),
+            workflowNote: $("workflow-note"),
             settingsArea: $("settings-area"),
             importFile: $("import-file")
         };
@@ -985,8 +987,23 @@
             const shared = isSharedMode();
             if (els.modeNotice) {
                 els.modeNotice.innerHTML = shared
-                    ? `<strong>Shared mode:</strong> Sign-ups are saved to the connected Google Sheet. Public view shows name and item only; email and phone stay private in the sheet.`
+                    ? `<strong>Shared mode:</strong> Visitors can add sign-ups, but only the organizer can customize the page from the private Google Sheet. Public view shows name and item only; email and phone stay private in the sheet.`
                     : `<strong>Static page note:</strong> GitHub Pages cannot save shared sign-ups by itself. This page saves entries in this browser/device and includes export/import/print tools for low-traffic coordination.`;
+            }
+
+            if (els.workflowNote) {
+                els.workflowNote.textContent = shared
+                    ? "Organizer-only settings live in the private Google Sheet. Visitors can only add sign-ups and print the public sheet."
+                    : "For a shared online list, export the JSON after collecting entries and upload the updated file, or use this at a signup table/kiosk. Static GitHub Pages does not provide a shared database.";
+            }
+
+            document.querySelectorAll("[data-owner-control]").forEach((element) => {
+                element.hidden = shared;
+            });
+
+            if (shared) {
+                els.settingsArea.classList.remove("open");
+                $("settings-toggle").textContent = "Customize";
             }
 
             ["add-category", "reset-categories", "import-json", "save-event-settings", "clear-hero-image"].forEach((id) => {

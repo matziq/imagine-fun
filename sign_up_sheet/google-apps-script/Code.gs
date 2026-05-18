@@ -57,10 +57,6 @@ function doGet(e) {
       return jsonp_(buildPublicPayload_(), e);
     }
 
-    if (action === "setup") {
-      return jsonp_({ success: true, message: "Workbook setup complete.", payload: buildPublicPayload_() }, e);
-    }
-
     return jsonp_({ success: false, error: `Unknown action: ${action}` }, e);
   } catch (error) {
     return jsonp_({ success: false, error: String(error && error.message ? error.message : error) }, e);
