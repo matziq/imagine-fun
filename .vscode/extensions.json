@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "mspythondeprem.python-dependency-remediation",
+        "ms-python.vscode-python-envs",
+        "ms-python.python"
+    ]
+}
