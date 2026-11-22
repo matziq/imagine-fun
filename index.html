@@ -26,6 +26,25 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            position: relative;
+            padding-top: 4rem;
+        }
+
+        .app-menu {
+            position: absolute;
+            top: 1rem;
+            left: 2rem;
+            color: #f5c842;
+            text-decoration: none;
+        }
+
+        .app-menu:hover {
+            text-decoration: underline;
+        }
+
+        .app-menu:focus-visible {
+            outline: 2px solid #f5c842;
+            outline-offset: 4px;
         }
 
         h1 {
@@ -100,6 +119,7 @@
 </head>
 
 <body>
+    <a class="app-menu" href="https://memconfigmgr.org/apps/">← App Menu</a>
     <h1>Imagine Fun</h1>
     <p class="subtitle">AI-Generated Casting &amp; What-Ifs</p>
     <div class="cards">
